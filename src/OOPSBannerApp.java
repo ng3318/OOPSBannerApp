@@ -1,33 +1,21 @@
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * OOPSBannerApp
- * UC6: Render OOPS Banner using Static Methods
+ * UC8: Use Map for Character Patterns
  *
  * @author YourName
- * @version 6.0
+ * @version 8.0
  */
 
 public class OOPSBannerApp {
 
-    public static void main(String[] args) {
+    public static Map<Character, String[]> createPatternMap() {
 
-        String[] banner = new String[7];
+        Map<Character, String[]> patterns = new HashMap<>();
 
-        String[] o = getOPattern();
-        String[] p = getPPattern();
-        String[] s = getSPattern();
-
-        for (int i = 0; i < 7; i++) {
-            banner[i] = String.join(" ", o[i], o[i], p[i], s[i]);
-        }
-
-        for (String line : banner) {
-            System.out.println(line);
-        }
-    }
-
-    // Pattern for letter O
-    public static String[] getOPattern() {
-        return new String[]{
+        patterns.put('O', new String[]{
                 " ***** ",
                 "*     *",
                 "*     *",
@@ -35,12 +23,9 @@ public class OOPSBannerApp {
                 "*     *",
                 "*     *",
                 " ***** "
-        };
-    }
+        });
 
-    // Pattern for letter P
-    public static String[] getPPattern() {
-        return new String[]{
+        patterns.put('P', new String[]{
                 "****** ",
                 "*     *",
                 "*     *",
@@ -48,12 +33,9 @@ public class OOPSBannerApp {
                 "*      ",
                 "*      ",
                 "*      "
-        };
-    }
+        });
 
-    // Pattern for letter S
-    public static String[] getSPattern() {
-        return new String[]{
+        patterns.put('S', new String[]{
                 " ***** ",
                 "*     *",
                 "*      ",
@@ -61,6 +43,30 @@ public class OOPSBannerApp {
                 "      *",
                 "*     *",
                 " ***** "
-        };
+        });
+
+        return patterns;
+    }
+
+    public static void printBanner(String word) {
+
+        Map<Character, String[]> patterns = createPatternMap();
+
+        for (int i = 0; i < 7; i++) {
+
+            StringBuilder line = new StringBuilder();
+
+            for (char c : word.toCharArray()) {
+                line.append(patterns.get(c)[i]).append(" ");
+            }
+
+            System.out.println(line);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        printBanner("OOPS");
+
     }
 }
